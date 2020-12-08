@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: GIT
+branch: master
+keyAuth: false
+password: gcpkms:1hQojL1pQd-K_h_XTMkByA
+url: https://github.com/usheerfotedar/harness.git
+urlType: REPO
+username: usheer.fotedar@harness.io
