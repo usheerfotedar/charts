@@ -37,6 +37,7 @@ phases:
         connectionAttributes: null
         delegateSelectors:
         - usheeraws
+        - usheerk8del
         executeOnDelegate: true
         host: null
         outputVars: ''
