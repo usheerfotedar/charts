@@ -38,6 +38,7 @@ phases:
         delegateSelectors:
         - usheeraws
         - usheerk8del
+        - test123
         executeOnDelegate: true
         host: null
         outputVars: ''
