@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: NEXUS
+artifactPaths:
+- myartifact
+groupId: mygroup
+metadataOnly: false
+repositoryFormat: maven
+repositoryName: usheertestzip
+serverName: usheernexustest

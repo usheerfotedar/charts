@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: CLOUD_FORMATION
+description: aaaa
+sourceType: TEMPLATE_URL
+templateFilePath: sjdhsjdhjshdjshd
+variables:
+- name: sdsdsdsd
+  valueType: TEXT

@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: SPLUNKV2
+alertEnabled: false
+alertPriority: P5
+alertThreshold: 0.5
+connectorName: Splunk-test-usheer
+enabled24x7: false
+hostnameField: host
+isAdvancedQuery: false
+numOfOccurrencesForAlert: 1
+query: ERROR
+serviceName: usheer3

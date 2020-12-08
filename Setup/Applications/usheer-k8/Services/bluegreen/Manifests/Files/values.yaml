@@ -1,0 +1,3 @@
+name: bluegreen-test-rolling-again
+replicas: 3
+image: ${artifact.metadata.image}

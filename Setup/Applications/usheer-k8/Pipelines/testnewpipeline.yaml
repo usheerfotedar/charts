@@ -1,0 +1,37 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: test
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: qa rolling
+- type: ENV_STATE
+  name: www
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: dev-rolling
+- type: APPROVAL
+  name: Approval 2
+  parallel: false
+  properties:
+    approvalStateParams:
+      jiraApprovalParams:
+        jiraConnectorId: zfXgt0ZiTtmE18o5W9ZRMA
+        project: OPS
+        issueId: OPS-592
+        approvalField: status
+        approvalOperator: equalsTo
+        approvalValue: Done
+        rejectionField: status
+        rejectionOperator: equalsTo
+        rejectionValue: In Progress
+    timeoutMillis: 60000000
+    approvalStateType: JIRA
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 3

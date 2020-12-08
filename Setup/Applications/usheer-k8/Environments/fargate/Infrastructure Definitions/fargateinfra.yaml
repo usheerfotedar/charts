@@ -1,0 +1,21 @@
+harnessApiVersion: '1.0'
+type: INFRA_DEFINITION
+cloudProviderType: AWS
+deploymentType: ECS
+infrastructure:
+- type: AWS_ECS
+  assignPublicIp: false
+  cloudProviderName: usheeraws
+  clusterName: usheerecstest
+  executionRole: arn:aws:iam::915632791698:role/ecsTaskExecutionRole
+  launchType: FARGATE
+  region: us-east-2
+  securityGroupIds:
+  - sg-0126c492662439bd0
+  subnetIds:
+  - subnet-921d17fa
+  - subnet-51a8e82b
+  - subnet-2d05ad61
+  vpcId: vpc-00ea086b
+scopedServices:
+- ecsfargatetest

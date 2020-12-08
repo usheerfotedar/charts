@@ -1,0 +1,26 @@
+harnessApiVersion: '1.0'
+type: CANARY
+concurrencyStrategy: INFRA
+envName: sshenv
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+preDeploymentSteps:
+- type: SHELL_SCRIPT_PROVISION
+  name: Shell Script Provision
+  properties:
+    backendConfigs: null
+    provisionerName: shellabctest
+    variables: null
+templatized: false

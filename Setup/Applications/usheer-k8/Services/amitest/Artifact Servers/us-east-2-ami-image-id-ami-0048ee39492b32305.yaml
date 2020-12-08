@@ -1,0 +1,7 @@
+harnessApiVersion: '1.0'
+type: AMI
+amiFilters:
+- name: ami-name
+  value: usheer-private-image
+region: us-east-2
+serverName: usheeraws

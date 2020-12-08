@@ -1,0 +1,15 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: logmeinpipelinetestnew
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: logmeinpipelinetestnew
+  workflowVariables:
+  - name: maxcpu
+    value: '1024'
+  - name: mincpu
+    value: '512'

@@ -1,0 +1,29 @@
+name: usheer-harness-example
+replicas: 1
+
+image: ${artifact.metadata.image}
+dockercfg: ${artifact.source.dockerconfig}
+
+createImagePullSecret: false
+
+createNamespace: true
+namespace: ${infra.kubernetes.namespace}
+
+# Service Type allow you to specify what kind of service you want.
+# Possible values for ServiceType are:
+# ClusterIP | NodePort | LoadBalancer | ExternalName
+serviceType: LoadBalancer
+
+# A Service can map an incoming port to any targetPort.
+# targetPort is where application is listening on inside the container.
+servicePort: 80
+serviceTargetPort: 80
+CATALINA_OPTS: "-javaagent:/usr/local/AppServerAgent-4.3.8.0/javaagent.jar -Dappdynamics.agent.nodeName=$(hostname)"
+JAVA_OPTS: "-Dsplunk_url=https://input-prd-p-429h4vj2lsng.cloud.splunk.com:8088/services/collector -Dsplunk_token=D6BD1AD4-CB62-4D80-A637-350CE2B16866 -Dsumo.url=https://endpoint3.collection.us2.sumologic.com/receiver/v1/http/ZaVnC4dhaV20o1LSh9W0xvxdHlY6K_s3pV1lMTKIYgQv2KnIAzCfNZSeYt0oIXeCpSQfe3cywmauNJJN6PxGHeE_tJY7DMSiqoVzVmtuplj0gbXTDJcfFA== -Delk_url=http://ec2-34-227-84-170.compute-1.amazonaws.com:9200/integration-test/_doc"
+APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: ${serviceVariable.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY}
+APPDYNAMICS_AGENT_ACCOUNT_NAME: "harness-test"
+APPDYNAMICS_AGENT_APPLICATION_NAME: "cv-app"
+APPDYNAMICS_AGENT_TIER_NAME: "docker-tier"
+APPDYNAMICS_CONTROLLER_HOST_NAME: "harness-test.saas.appdynamics.com"
+APPDYNAMICS_CONTROLLER_PORT: "443"
+APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"

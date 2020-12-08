@@ -1,0 +1,30 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: abctest123
+  parallel: false
+  runtimeInputs:
+    runtimeInputVariables:
+    - InfraDefinition_KUBERNETES
+    timeout: 86400000
+    timeoutAction: END_EXECUTION
+    userGroupNames:
+    - BLRCSE
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: abctest123
+  workflowVariables:
+  - name: ename
+  - name: sname
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: qa
+  - entityType: SERVICE
+    name: Service
+    value: ${servicename}
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_KUBERNETES
+    value: ${infra}
+  - name: infraname

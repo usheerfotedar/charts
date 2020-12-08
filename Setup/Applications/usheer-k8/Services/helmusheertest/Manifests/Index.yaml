@@ -1,0 +1,7 @@
+harnessApiVersion: '1.0'
+type: APPLICATION_MANIFEST
+helmChartConfig:
+  chartName: abc/chartmuseum
+  chartVersion: 2.3.2
+  connectorName: usheerhelmtestjfrog
+storeType: HelmChartRepo

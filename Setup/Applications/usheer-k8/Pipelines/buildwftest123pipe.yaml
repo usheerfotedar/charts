@@ -1,0 +1,19 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: buildwftest123
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: buildwftest123
+  workflowVariables:
+  - name: a
+    value: ${secrets.getValue("test1")}
+  - name: b
+    value: ${secrets.getValue("test2")}
+  - name: c
+    value: ${secrets.getValue("test3")}
+  - name: d
+    value: ${secrets.getValue("test4")}

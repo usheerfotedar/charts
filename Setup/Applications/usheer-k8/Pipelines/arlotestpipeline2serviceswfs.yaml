@@ -1,0 +1,49 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: arlotestwf22
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: arlotestwf22
+  workflowVariables:
+  - entityType: SERVICE
+    name: Service2
+    value: arlotestservice2
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_Kubernetes
+    value: arlotestinfradef2
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_Kubernetes2
+    value: arlotestinfradef2
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: arlotestenv
+  - entityType: SERVICE
+    name: Service
+    value: arlotestservice2
+- type: ENV_STATE
+  name: arlotestwfsrv12
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: arlotestwfsrv12
+  workflowVariables:
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_KUBERNETES2
+    value: arlotestinfradef1
+  - entityType: SERVICE
+    name: Service2
+    value: arlotestservice1
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: arlotestenv
+  - entityType: SERVICE
+    name: Service
+    value: arlotestservice1
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_KUBERNETES
+    value: arlotestinfradef1

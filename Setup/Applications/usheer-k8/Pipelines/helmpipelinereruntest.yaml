@@ -1,0 +1,20 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: aidhelm3test2
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: aidhelm3test2
+  workflowVariables:
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: ${Environment}
+  - entityType: SERVICE
+    name: Service
+    value: ${Service}
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_HELM
+    value: ${InfraDefinition_KUBERNETES}

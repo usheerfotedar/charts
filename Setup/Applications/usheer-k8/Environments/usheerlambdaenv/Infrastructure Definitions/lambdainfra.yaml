@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: INFRA_DEFINITION
+cloudProviderType: AWS
+deploymentType: AWS_LAMBDA
+infrastructure:
+- type: AWS_AWS_LAMBDA
+  cloudProviderName: usheeraws
+  iamRole: arn:aws:iam::915632791698:role/usheer_all
+  region: us-east-2

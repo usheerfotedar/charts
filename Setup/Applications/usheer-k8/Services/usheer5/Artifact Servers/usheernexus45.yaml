@@ -1,0 +1,3 @@
+harnessApiVersion: '1.0'
+type: CUSTOM
+templateUri: Harness-CS/usheertestharness:latest

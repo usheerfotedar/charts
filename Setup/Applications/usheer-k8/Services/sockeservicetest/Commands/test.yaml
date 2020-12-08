@@ -1,0 +1,13 @@
+harnessApiVersion: '1.0'
+type: INSTALL
+commandUnitType: COMMAND
+commandUnits:
+- command: |
+    echo "Hello"
+    sleep 840
+    echo "wake up"
+  commandUnitType: EXEC
+  deploymentType: SSH
+  name: Exec
+  scriptType: BASH
+targetToAllEnv: true

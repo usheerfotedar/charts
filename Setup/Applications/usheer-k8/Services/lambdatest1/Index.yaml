@@ -1,0 +1,14 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: AWS_LAMBDA
+configVariables:
+- name: DEFAULT_RETRIEVAL_DAYS
+  value: '1'
+  valueType: TEXT
+- name: LOG_LEVEL
+  value: DEBUG
+  valueType: TEXT
+- name: STRIPE_API_KEY
+  value: gcpkms:-AC9VQK5Si-SknPL-nn1DQ
+  valueType: ENCRYPTED_TEXT
+deploymentType: AWS_LAMBDA

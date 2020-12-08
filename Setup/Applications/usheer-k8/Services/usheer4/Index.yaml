@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: percentage
+  value: '5'
+  valueType: TEXT
+- name: service
+  value: ${service.name}
+  valueType: TEXT
+deploymentType: KUBERNETES
+helmVersion: V2

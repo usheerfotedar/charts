@@ -1,0 +1,72 @@
+harnessApiVersion: '1.0'
+type: BUILD
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+phases:
+- daemonSet: false
+  name: Phase 1
+  phaseSteps:
+  - type: PREPARE_STEPS
+    name: Prepare Steps
+    stepsInParallel: false
+  - type: COLLECT_ARTIFACT
+    name: Collect Artifact
+    steps:
+    - type: SHELL_SCRIPT
+      name: Shell Script
+      properties:
+        commandPath: null
+        connectionAttributes: null
+        executeOnDelegate: true
+        host: null
+        outputVars: ''
+        publishAsVar: false
+        scriptString: |
+          echo ${workflow.variables.a}
+          echo ${workflow.variables.b}
+          echo ${workflow.variables.c}
+          echo ${workflow.variables.d}
+        scriptType: BASH
+        sshKeyRef: null
+        sweepingOutputName: null
+        sweepingOutputScope: null
+        tags: null
+        templateExpressions: null
+        templateVariables: ''
+        timeoutMillis: 60000
+    stepsInParallel: false
+  - type: WRAP_UP
+    name: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  statefulSet: false
+templatized: true
+userVariables:
+- type: TEXT
+  allowedValues: ${secrets.getValue("test1")}
+  fixed: false
+  mandatory: true
+  name: a
+  value: ${secrets.getValue("test1")}
+- type: TEXT
+  allowedValues: ${secrets.getValue("test2")}
+  fixed: false
+  mandatory: true
+  name: b
+  value: ${secrets.getValue("test2")}
+- type: TEXT
+  allowedValues: ${secrets.getValue("test3")}
+  fixed: false
+  mandatory: true
+  name: c
+- type: TEXT
+  allowedValues: ${secrets.getValue("test4")}
+  fixed: false
+  mandatory: true
+  name: d

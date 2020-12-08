@@ -1,0 +1,10 @@
+harnessApiVersion: '1.0'
+type: SHELL_SCRIPT
+scriptBody: echo "hello"
+variables:
+- name: aaa
+  valueType: TEXT
+- name: abc
+  valueType: TEXT
+- name: new
+  valueType: ENCRYPTED_TEXT

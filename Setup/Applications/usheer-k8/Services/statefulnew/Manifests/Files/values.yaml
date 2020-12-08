@@ -1,0 +1,52 @@
+namespace: 
+  name: ${infra.kubernetes.namespace}
+  annotated: false
+
+name: elasticsearch1
+replicas: 2
+
+image: ${artifact.metadata.image}
+dockercfg: ${artifact.source.dockerconfig}
+
+securityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsUser: 1001
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 600
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 10
+
+readinessProbe:
+  enabled: false
+  initialDelaySeconds: 600
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 20
+
+# Service Type allow you to specify what kind of service you want.
+# Possible values for ServiceType are:
+# ClusterIP | NodePort | LoadBalancer | ExternalName
+serviceType: ClusterIP
+
+# A Service can map an incoming port to any targetPort.
+# targetPort is where application is listening on inside the container.
+servicePort1: 9200
+serviceTargetPort1: 9200
+servicePortName1: rest
+
+servicePort2: 9300
+serviceTargetPort2: 9300
+servicePortName2: inter-node
+
+volumeName: elasticsearch-volume
+
+cpu: 500m
+memory: 3Gi
+storageSize: 10Gi
+storageClass: standard

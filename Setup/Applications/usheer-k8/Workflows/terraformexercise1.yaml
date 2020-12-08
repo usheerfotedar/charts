@@ -1,0 +1,40 @@
+harnessApiVersion: '1.0'
+type: CANARY
+concurrencyStrategy: INFRA
+envName: exercise env
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+preDeploymentSteps:
+- type: TERRAFORM_PROVISION
+  name: Terraform Provision
+  properties:
+    backendConfigs: null
+    delegateTag: ''
+    inheritApprovedPlan: false
+    name: Terraform Provision
+    provisionerName: Exercise 1
+    runPlanOnly: false
+    targets: null
+    tfVarFiles: null
+    timeoutMillis: 300000
+    variables:
+    - name: usheer_aws_access_key
+      value: V2V7ID1gQ1CtSgZF9BmZ6g
+      valueType: ENCRYPTED_TEXT
+    - name: usheer_aws_secret_key
+      value: fGUFsJFnTjqhDiwNTLIRKQ
+      valueType: ENCRYPTED_TEXT
+    workspace: ''
+templatized: false

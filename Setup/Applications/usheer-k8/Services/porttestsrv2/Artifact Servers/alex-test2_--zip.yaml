@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: ARTIFACTORY
+artifactPattern: '*.zip'
+metadataOnly: false
+repositoryName: alex-test2
+repositoryType: any
+serverName: Harness Artifactory
+useDockerFormat: false

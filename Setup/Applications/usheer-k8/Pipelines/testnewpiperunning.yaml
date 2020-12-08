@@ -1,0 +1,25 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: APPROVAL
+  name: Approval 0
+  parallel: false
+  properties:
+    userGroups:
+    - BLRCSE
+    - Account Administrator
+    variables: null
+    stageName: STAGE 2
+    timeoutMillis: 86400000
+    approvalStateType: USER_GROUP
+    sweepingOutputName: ''
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+- type: ENV_STATE
+  name: sleepwftest
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: sleepwftest

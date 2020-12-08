@@ -1,0 +1,34 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: helmusheertest
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: helmusheertest
+- type: ENV_STATE
+  name: helm3wftest-clone
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: helm3wftest-clone
+- type: ENV_STATE
+  name: nylaswftest
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 3
+  workflowName: nylaswftest
+  workflowVariables:
+  - name: dockerTag
+    value: aaa
+- type: ENV_STATE
+  name: canarywftest
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 4
+  workflowName: canarywftest

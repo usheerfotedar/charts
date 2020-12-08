@@ -1,0 +1,2 @@
+namespace: ${infra.kubernetes.namespace}
+image: ${artifact.metadata.image}

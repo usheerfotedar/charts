@@ -1,0 +1,47 @@
+harnessApiVersion: '1.0'
+type: MULTI_SERVICE
+concurrencyStrategy: INFRA
+envName: qa
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+preDeploymentSteps:
+- type: TERRAFORM_APPLY
+  name: Terraform Apply
+  properties:
+    backendConfigs: null
+    delegateTag: ''
+    exportPlanToApplyStep: false
+    inheritApprovedPlan: false
+    name: Terraform Apply
+    provisionerName: usheerterraformtest
+    runPlanOnly: true
+    targets: null
+    templateUuid: null
+    templateVariables: null
+    templateVersion: null
+    tfVarFiles: null
+    timeoutMillis: 900000
+    variables:
+    - name: access_key
+      valueType: ENCRYPTED_TEXT
+      value: V2V7ID1gQ1CtSgZF9BmZ6g
+    - name: secret_key
+      valueType: ENCRYPTED_TEXT
+      value: eR4iFA7YS_Cp3-ZXg_4TpQ
+    - name: test
+      valueType: TEXT
+      value: '{my-share-1 = {quota = 123}}'
+    workspace: ''
+templatized: false

@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: abc
+  value: gcpkms:fGUFsJFnTjqhDiwNTLIRKQ
+  valueType: ENCRYPTED_TEXT
+deploymentType: SSH

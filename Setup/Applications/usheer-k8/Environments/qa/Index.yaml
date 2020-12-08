@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: ENVIRONMENT
+configMapYamlByServiceTemplateName: {}
+description: qa namespace
+environmentType: NON_PROD
+tags:
+  test: abc
+variableOverrides:
+- name: test-data
+  serviceName: my_k8s_service
+  value: test
+  valueType: TEXT

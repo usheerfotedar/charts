@@ -1,0 +1,186 @@
+harnessApiVersion: '1.0'
+type: MULTI_SERVICE
+concurrencyStrategy: INFRA
+envName: Dev
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+phases:
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: dev_my_k8s_service
+  name: Canary2
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_CANARY_DEPLOY
+      name: Canary Deployment
+      properties:
+        instanceUnitType: COUNT
+        instances: '1'
+    - type: SHELL_SCRIPT
+      name: hello-world
+      properties:
+        executeOnDelegate: true
+        timeoutMillis: 600000
+      templateUri: Harness-CS/HTTP Verifications/hello-world:latest
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    steps:
+    - type: K8S_DELETE
+      name: Canary Delete
+      properties:
+        instanceUnitType: COUNT
+        resources: ${k8s.canaryWorkload}
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: my_k8s_service
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: new1
+  name: Canary1
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_CANARY_DEPLOY
+      name: Canary Deployment
+      properties:
+        instanceUnitType: COUNT
+        instances: '1'
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    steps:
+    - type: K8S_DELETE
+      name: Canary Delete
+      properties:
+        instanceUnitType: COUNT
+        resources: ${k8s.canaryWorkload}
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: simple
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: dev_my_k8s_service
+  name: Phase 3
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_CANARY_DEPLOY
+      name: Canary Deployment
+      properties:
+        instanceUnitType: COUNT
+        instances: '1'
+    - type: SHELL_SCRIPT
+      name: hello-world
+      properties:
+        executeOnDelegate: true
+        scriptString: echo
+        scriptType: BASH
+        timeoutMillis: 600000
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    steps:
+    - type: K8S_DELETE
+      name: Canary Delete
+      properties:
+        instanceUnitType: COUNT
+        resources: ${k8s.canaryWorkload}
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: my_k8s_service
+  statefulSet: false
+rollbackPhases:
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: dev_my_k8s_service
+  name: Rollback Canary2
+  phaseNameForRollback: Canary2
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: my_k8s_service
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: new1
+  name: Rollback Canary1
+  phaseNameForRollback: Canary1
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: simple
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: dev_my_k8s_service
+  name: Rollback Phase 3
+  phaseNameForRollback: Phase 3
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: my_k8s_service
+  statefulSet: false
+templatized: true
+userVariables:
+- type: ENTITY
+  fixed: false
+  mandatory: true
+  name: InfraDefinition_Kubernetes

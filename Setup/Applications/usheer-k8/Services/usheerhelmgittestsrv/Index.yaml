@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: qa
+  value: hello/values.yaml
+  valueType: TEXT
+- name: qa_path
+  value: hello/values.yaml
+  valueType: TEXT
+deploymentType: KUBERNETES
+helmVersion: V2

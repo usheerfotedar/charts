@@ -1,0 +1,13 @@
+harnessApiVersion: '1.0'
+type: STACK_DRIVER_LOG
+alertEnabled: false
+alertPriority: P5
+alertThreshold: 0.5
+connectorName: usheer-stackdriver
+enabled24x7: false
+hostnameField: resource.labels.pod_id
+isLogsConfiguration: true
+messageField: textPayload
+numOfOccurrencesForAlert: 1
+query: severity:"INFO"
+serviceName: my_k8s_service

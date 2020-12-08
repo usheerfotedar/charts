@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: ARTIFACTORY
+artifactPattern: todolist/*/*.rpm
+metadataOnly: false
+repositoryName: harness-rpm
+repositoryType: any
+serverName: Harness Artifactory
+useDockerFormat: false

@@ -1,0 +1,44 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+  value: gcpkms:irBYCKQtTsqwOob4Hev_lg
+  valueType: ENCRYPTED_TEXT
+- name: CATALINA_OPTS
+  value: ' "-javaagent:/usr/local/AppServerAgent-4.3.8.0/javaagent.jar -Dappdynamics.agent.nodeName=$(hostname)"'
+  valueType: TEXT
+- name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+  value: 'true'
+  valueType: TEXT
+- name: APPDYNAMICS_CONTROLLER_PORT
+  value: '443'
+  valueType: TEXT
+- name: APPDYNAMICS_CONTROLLER_HOST_NAME
+  value: harness-test.saas.appdynamics.com
+  valueType: TEXT
+- name: APPDYNAMICS_AGENT_TIER_NAME
+  value: testDeepanshuTier
+  valueType: TEXT
+- name: APPDYNAMICS_AGENT_APPLICATION_NAME
+  value: test-deepanshu
+  valueType: TEXT
+- name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+  value: harness-test
+  valueType: TEXT
+- name: url_prefix
+  value: https://dm-text-v2
+  valueType: TEXT
+- name: test-data
+  value: '{"messageText":"Hello Harness from Harness"}'
+  valueType: TEXT
+- name: url-prefix
+  value: https://dm-text-v2
+  valueType: TEXT
+- name: testdata
+  value: '{"messageText":"Hello Harness from Harness"}'
+  valueType: TEXT
+- name: urlprefix
+  value: https://dm-text-v2
+  valueType: TEXT
+deploymentType: KUBERNETES

@@ -1,0 +1,18 @@
+harnessApiVersion: '1.0'
+type: OTHER
+commandUnitType: COMMAND
+targetToAllEnv: true
+templateUri: Harness-CS/teardown:latest
+templateVariables:
+- name: Service
+  value: myservice
+- name: Product
+  value: Nucleus
+- name: Version
+  value: ${workflow.variables.Version}
+- name: Environment
+  value: ED
+- name: Regions
+  value: us-east-1,us-west-2
+- name: ClusterInfo
+  value: '{"us-west-2": "memeboot-eks-nucleus-v2-poc", "us-east-1": "memeboot-eks-nucleus-v2-poc"}'

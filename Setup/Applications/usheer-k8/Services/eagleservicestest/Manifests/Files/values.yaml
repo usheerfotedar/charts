@@ -1,0 +1,8 @@
+dockercfg: ${artifact.source.dockerconfig}
+
+name: ${service.name}
+namespace: ${infra.kubernetes.namespace}
+version: ${artifact.metadata.tag}
+region: null
+canary_suffix: null
+overrides: {}

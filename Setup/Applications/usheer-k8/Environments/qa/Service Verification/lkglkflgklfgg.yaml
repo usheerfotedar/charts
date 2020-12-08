@@ -1,0 +1,11 @@
+harnessApiVersion: '1.0'
+type: APP_DYNAMICS
+alertEnabled: false
+alertThreshold: 0.5
+analysisTolerance: LOW
+appDynamicsApplicationName: Harness-Dev
+connectorName: AppDynamics_Test_Env
+enabled24x7: true
+numOfOccurrencesForAlert: 1
+serviceName: usheer2
+tierName: verification_service

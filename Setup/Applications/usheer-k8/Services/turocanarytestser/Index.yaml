@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: NewRelicApplication
+  value: UNSET NAME
+  valueType: TEXT
+- name: envName
+  value: UNSET NAME
+  valueType: TEXT
+deploymentType: KUBERNETES
+helmVersion: V2

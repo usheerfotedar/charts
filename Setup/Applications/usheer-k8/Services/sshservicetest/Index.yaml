@@ -1,0 +1,11 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: RPM
+configVariables:
+- name: service
+  value: ${service.name}
+  valueType: TEXT
+- name: env
+  value: ${env.name}
+  valueType: TEXT
+deploymentType: SSH

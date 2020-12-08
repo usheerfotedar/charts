@@ -1,0 +1,81 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: Stage1
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: discovertrigtestwf
+  workflowVariables:
+  - name: branch
+    value: abc
+- type: ENV_STATE
+  name: Stage 2
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: canarywftest
+- type: ENV_STATE
+  name: Stage 4
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 3
+  workflowName: sshtestwf
+  workflowVariables:
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: sshenv
+  - entityType: SERVICE
+    name: Service
+    value: sshservicetest
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_SSH
+    value: sshtypeinfradef
+  - name: version
+    value: ${workflow.variables.version}
+- type: ENV_STATE
+  name: Stage 5
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 4
+  workflowName: testhelm31212
+- type: ENV_STATE
+  name: Stage 3
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 5
+  workflowName: usheertesttrigbasic
+- type: ENV_STATE
+  name: Stage 6
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 6
+  workflowName: testhelm3
+- type: ENV_STATE
+  name: Stage 8
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 7
+  workflowName: artifactremovetestwf
+- type: ENV_STATE
+  name: Stage 9
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 8
+  workflowName: finaltest
+  workflowVariables:
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_Kubernetes
+    value: testk8
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: qa

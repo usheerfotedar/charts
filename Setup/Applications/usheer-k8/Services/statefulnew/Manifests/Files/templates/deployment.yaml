@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{.Values.name}}-clstr
+  labels:
+    app: {{.Values.name}}
+  namespace: {{.Values.namespace.name}}
+spec:
+  serviceName: {{.Values.name}}-svc
+  replicas: {{int .Values.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Values.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.name}}
+    spec:
+      {{- if .Values.securityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      {{- end }}
+      initContainers:
+      - name: fix-permissions
+        image: busybox
+        command: ["sh", "-c", "chown -R {{ .Values.securityContext.fsGroup }}:{{ .Values.securityContext.runAsUser }} /usr/share/elasticsearch/data"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: {{.Values.volumeName}}
+          mountPath: /usr/share/elasticsearch/data
+      - name: increase-vm-max-map
+        image: busybox
+        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+        securityContext:
+          privileged: true
+      - name: increase-fs-file-max
+        image: busybox
+        command: ["sysctl", "-w", "fs.file-max=64000"]
+        securityContext:
+          privileged: true
+      - name: increase-fd-ulimit
+        image: busybox
+        command: ["sh", "-c", "ulimit -n 65536"]
+        securityContext:
+          privileged: true
+      containers:
+      - name: {{.Values.name}}
+        image: {{.Values.image}}
+        {{- if .Values.securityContext.enabled }}
+        securityContext:
+          runAsUser: {{ .Values.securityContext.runAsUser }}
+        {{- end }}
+        resources:
+          limits:
+            cpu: {{.Values.cpu | quote}}
+            memory: {{.Values.memory}}
+          requests:
+            cpu: {{.Values.cpu | quote}}
+            memory: {{.Values.memory}}
+        command: ["bin/elasticsearch"]
+        args: ["-Ecluster.name=search", "-Ediscovery.seed_hosts={{.Values.name}}-svc", "-Ecluster.initial_master_nodes={{.Values.name}}-clstr-0,{{.Values.name}}-clstr-1,{{.Values.name}}-clstr-2"]
+        ports:
+        - containerPort: {{.Values.servicePort1}}
+          name: {{.Values.servicePortName1}}
+          protocol: TCP
+        - containerPort: {{.Values.servicePort2}}
+          name: {{.Values.servicePortName2}}
+          protocol: TCP
+        {{- if .Values.livenessProbe.enabled }}  
+        livenessProbe:
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+          httpGet:
+            path: /_cluster/health?local=true
+            port: 9200
+        {{- end }}
+        {{- if .Values.readinessProbe.enabled }}
+        readinessProbe:
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+          httpGet:
+            path: /_cluster/health?local=true
+            port: 9200
+        {{- end }}
+        env:
+        - name: ES_JAVA_OPTS
+          value: "-Xms512m -Xmx512m"
+        volumeMounts:
+        - name: {{.Values.volumeName}}
+          mountPath: /usr/share/elasticsearch/data
+  volumeClaimTemplates:
+    - metadata:
+        name: {{.Values.volumeName}}
+        labels:
+          app: {{.Values.name}}
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        storageClassName: {{.Values.storageClass}}
+        resources:
+          requests:
+            storage: {{.Values.storageSize}}

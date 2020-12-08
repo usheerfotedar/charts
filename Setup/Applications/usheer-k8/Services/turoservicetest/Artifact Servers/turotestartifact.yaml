@@ -1,0 +1,5 @@
+harnessApiVersion: '1.0'
+type: CUSTOM
+delegateTags:
+- test123
+templateUri: Harness-CS/usheertestharness:latest

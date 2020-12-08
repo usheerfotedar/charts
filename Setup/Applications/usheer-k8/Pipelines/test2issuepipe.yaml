@@ -1,0 +1,24 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: canarywftest
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: bcd
+  workflowName: canarywftest
+- type: ENV_STATE
+  name: discovertrigtestwf
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: Abc
+  workflowName: discovertrigtestwf
+- type: ENV_STATE
+  name: testhelm31212
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: Stagename
+  workflowName: testhelm31212

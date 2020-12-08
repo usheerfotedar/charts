@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: AWS_LAMBDA
+defaults:
+  memorySize: 128
+  runtime: nodejs12.x
+  timeout: 10
+functions:
+- functionName: HelloWorldZip
+  handler: hello-world.handler
+  memorySize: 128
+  runtime: nodejs12.x
+  timeout: 10

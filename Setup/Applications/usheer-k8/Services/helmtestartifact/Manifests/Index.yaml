@@ -1,0 +1,7 @@
+harnessApiVersion: '1.0'
+type: APPLICATION_MANIFEST
+helmChartConfig:
+  chartName: todolist
+  connectorName: General Helm Repo S3
+pollForChanges: true
+storeType: HelmChartRepo

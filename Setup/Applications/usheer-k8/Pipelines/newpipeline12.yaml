@@ -1,0 +1,37 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: newpipeline1
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: newpipeline1
+  workflowVariables:
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: qa
+  - entityType: SERVICE
+    name: Service
+    value: ${Service}
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_KUBERNETES
+    value: testk8
+- type: ENV_STATE
+  name: newpipeline2
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: newpipeline2
+  workflowVariables:
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: qa
+  - entityType: SERVICE
+    name: Service
+    value: ${Service}
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_KUBERNETES
+    value: testk8

@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: CUSTOM
+delegateTags:
+- test123
+scripts:
+- customRepositoryMapping:
+    artifactRoot: $.items
+    buildNoPath: version
+  scriptString: |-
+    curl -X GET "http://nexus3.harness.io:8081/service/rest/v1/components?repository=maven-releases" \
+    -H "accept: application/json" > ${ARTIFACT_RESULT_PATH}
+  timeout: '60'

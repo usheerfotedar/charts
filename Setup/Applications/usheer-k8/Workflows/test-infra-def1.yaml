@@ -1,0 +1,165 @@
+harnessApiVersion: '1.0'
+type: MULTI_SERVICE
+concurrencyStrategy: INFRA
+envName: Dev
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+phases:
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: new1
+  name: Canary33
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_CANARY_DEPLOY
+      name: Canary Deployment
+      properties:
+        instanceUnitType: COUNT
+        instances: '1'
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    steps:
+    - type: K8S_DELETE
+      name: Canary Delete
+      properties:
+        instanceUnitType: COUNT
+        resources: ${k8s.canaryWorkload}
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: simple
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: dev_my_k8s_service
+  name: Canary22
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_CANARY_DEPLOY
+      name: Canary Deployment
+      properties:
+        instanceUnitType: COUNT
+        instances: '1'
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    steps:
+    - type: K8S_DELETE
+      name: Canary Delete
+      properties:
+        instanceUnitType: COUNT
+        resources: ${k8s.canaryWorkload}
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: simple
+  statefulSet: false
+  templateExpressions:
+  - expression: ${Service}
+    fieldName: serviceId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+      value: ${InfraDefinition_Kubernetes2}
+    - name: entityType
+      value: SERVICE
+  - expression: ${InfraDefinition_Kubernetes2}
+    fieldName: infraDefinitionId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+    - name: entityType
+      value: INFRASTRUCTURE_DEFINITION
+rollbackPhases:
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: new1
+  name: Rollback Canary33
+  phaseNameForRollback: Canary33
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: simple
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: dev_my_k8s_service
+  name: Rollback Canary22
+  phaseNameForRollback: Canary22
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: simple
+  statefulSet: false
+  templateExpressions:
+  - expression: ${Service}
+    fieldName: serviceId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+      value: ${InfraDefinition_Kubernetes2}
+    - name: entityType
+      value: SERVICE
+  - expression: ${InfraDefinition_Kubernetes2}
+    fieldName: infraDefinitionId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+    - name: entityType
+      value: INFRASTRUCTURE_DEFINITION
+templatized: true
+userVariables:
+- type: ENTITY
+  description: Variable for Service entity in Rollback Canary22
+  fixed: false
+  mandatory: true
+  name: Service
+- type: ENTITY
+  fixed: false
+  mandatory: true
+  name: InfraDefinition_Kubernetes2

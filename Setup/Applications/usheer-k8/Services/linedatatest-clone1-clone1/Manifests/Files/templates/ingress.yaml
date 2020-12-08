@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{.Values.name}}-svc
+  namespace: {{.Values.namespace}}
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:962153238874:certificate/96087d90-7447-4fa5-bb3a-2225db4b712a
+    external-dns.alpha.kubernetes.io/hostname: {{.Values.route53}} 
+  labels:
+    app: {{.Values.name}}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /core
+            backend:
+              serviceName: eventstore-core-svc
+              servicePort: 2113
+          - path: /gateway
+            backend:
+              serviceName: eventstore-gateway-svc
+              servicePort: 2113
+          - path: /longview
+            backend:
+              serviceName: eventstore-longview-svc
+              servicePort: 2113  

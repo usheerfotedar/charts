@@ -1,0 +1,14 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: workjam2
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: workjam2
+  workflowVariables:
+  - entityType: SERVICE
+    name: Service
+    value: usheer1

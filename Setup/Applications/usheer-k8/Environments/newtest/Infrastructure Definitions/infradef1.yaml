@@ -1,0 +1,11 @@
+harnessApiVersion: '1.0'
+type: INFRA_DEFINITION
+cloudProviderType: KUBERNETES_CLUSTER
+deploymentType: KUBERNETES
+infrastructure:
+- type: DIRECT_KUBERNETES
+  cloudProviderName: k8usheernew
+  namespace: default
+  releaseName: release-${infra.kubernetes.infraId}
+scopedServices:
+- k8trig1

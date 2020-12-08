@@ -1,0 +1,24 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: APPROVAL
+  name: Approval 0
+  parallel: false
+  properties:
+    userGroups:
+    - Account Administrator
+    workflowVariables: null
+    stageName: STAGE 2
+    timeoutMillis: 30000
+    approvalStateType: USER_GROUP
+    sweepingOutputName: ''
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+- type: ENV_STATE
+  name: abctest123
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: abctest123

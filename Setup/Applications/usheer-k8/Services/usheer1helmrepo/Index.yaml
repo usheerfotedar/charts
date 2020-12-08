@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: helmversion
+  value: 0.1.0
+  valueType: TEXT
+deploymentType: KUBERNETES
+helmVersion: V3

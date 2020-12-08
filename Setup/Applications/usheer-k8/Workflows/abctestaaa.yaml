@@ -1,0 +1,55 @@
+harnessApiVersion: '1.0'
+type: BUILD
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - F-NjyZGxTvG6qakQO69Zhg
+phases:
+- daemonSet: false
+  name: Phase 1
+  phaseSteps:
+  - type: PREPARE_STEPS
+    name: Prepare Steps
+    steps:
+    - type: APPROVAL
+      name: Approval
+      properties:
+        approvalStateType: USER_GROUP
+        timeoutMillis: 86400000
+        userGroups:
+        - F-NjyZGxTvG6qakQO69Zhg
+    stepsInParallel: false
+  - type: COLLECT_ARTIFACT
+    name: Collect Artifact
+    steps:
+    - type: SHELL_SCRIPT
+      name: Shell Script
+      properties:
+        commandPath: null
+        connectionAttributes: null
+        executeOnDelegate: true
+        host: null
+        outputVars: ''
+        publishAsVar: false
+        scriptString: asfsfsdfsdfsdff
+        scriptType: BASH
+        sshKeyRef: null
+        sweepingOutputName: null
+        sweepingOutputScope: null
+        tags: null
+        templateExpressions: null
+        templateUuid: null
+        templateVariables: null
+        templateVersion: null
+        timeoutMillis: 60000
+    stepsInParallel: false
+  - type: WRAP_UP
+    name: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  statefulSet: false
+templatized: false

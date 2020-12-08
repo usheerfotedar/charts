@@ -1,0 +1,23 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: discovertrigtestwf
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: discovertrigtestwf
+  workflowVariables:
+  - name: branch
+    value: master
+- type: ENV_STATE
+  name: discoverduplicate
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: discovertrigtestwf
+  workflowVariables:
+  - name: branch
+    value: ${workflow.variables.environment}

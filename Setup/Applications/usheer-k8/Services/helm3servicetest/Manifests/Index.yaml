@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: APPLICATION_MANIFEST
+gitFileConfig:
+  branch: master
+  connectorName: testhelmsourcerepo
+  filePath: hello
+  useBranch: true
+  useInlineServiceDefinition: false
+storeType: HelmSourceRepo

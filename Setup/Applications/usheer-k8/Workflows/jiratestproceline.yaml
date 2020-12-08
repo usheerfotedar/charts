@@ -1,0 +1,43 @@
+harnessApiVersion: '1.0'
+type: CANARY
+concurrencyStrategy: INFRA
+envName: qa
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+preDeploymentSteps:
+- type: JIRA_CREATE_UPDATE
+  name: Jira
+  properties:
+    comment: ''
+    customFields: null
+    description: |-
+      ${Jiravar.issue.description}
+      hello world updated
+    issueId: CSE-27
+    issueType: Story
+    jiraAction: UPDATE_TICKET
+    jiraConnectorId: yrNmzLPsRO-K2BS49nfNEw
+    labels:
+    - ''
+    priority: P3
+    project: CSE
+    publishAsVar: true
+    summary: test issue update
+    sweepingOutputName: Jiravar
+    sweepingOutputScope: WORKFLOW
+    templateUuid: null
+    templateVariables: null
+    templateVersion: null
+templatized: false

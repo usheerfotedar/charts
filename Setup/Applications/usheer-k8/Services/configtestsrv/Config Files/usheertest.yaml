@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: CONFIG_FILE
+checksum: ELFnliF6lsTR3uGlZMnwDg==
+checksumType: MD5
+encrypted: false
+fileName: usheertest
+targetFilePath: usheertest
+targetToAllEnv: true

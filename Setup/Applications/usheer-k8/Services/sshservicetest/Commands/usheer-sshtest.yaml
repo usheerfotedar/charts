@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: OTHER
+commandUnitType: COMMAND
+targetToAllEnv: true
+templateUri: Harness-CS/usheer-sshtest:latest
+templateVariables:
+- name: env
+  value: ${workflow.variables.Environment}
+- name: service
+  value: ${workflow.variables.Service}
+- name: version
+  value: ${workflow.variables.version}

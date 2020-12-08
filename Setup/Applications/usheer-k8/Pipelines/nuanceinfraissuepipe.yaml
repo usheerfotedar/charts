@@ -1,0 +1,17 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: nuanceinfraissue (Workflow Template)
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 1
+  workflowName: nuanceinfraissue
+  workflowVariables:
+  - entityType: ENVIRONMENT
+    name: Environment
+    value: qa
+  - entityType: INFRASTRUCTURE_DEFINITION
+    name: InfraDefinition_KUBERNETES
+    value: testk8

@@ -1,0 +1,21 @@
+harnessApiVersion: '1.0'
+type: PIPELINE
+pipelineStages:
+- type: ENV_STATE
+  name: ancestorytest
+  parallel: false
+  skipCondition:
+    expression: ${account.defaults.test_def}==false
+    type: CONDITIONAL_SKIP
+  stageName: STAGE 1
+  workflowName: ancestorytest
+- type: ENV_STATE
+  name: buildtest
+  parallel: false
+  skipCondition:
+    type: DO_NOT_SKIP
+  stageName: STAGE 2
+  workflowName: buildtest
+  workflowVariables:
+  - name: abc
+    value: '11'

@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: APPLICATION_MANIFEST
+helmChartConfig:
+  basePath: usheerhelm
+  chartName: todolist
+  connectorName: usheerawss3testhelm
+pollForChanges: true
+storeType: HelmChartRepo

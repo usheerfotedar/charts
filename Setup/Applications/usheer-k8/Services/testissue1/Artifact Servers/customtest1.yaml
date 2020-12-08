@@ -1,0 +1,17 @@
+harnessApiVersion: '1.0'
+type: CUSTOM
+scripts:
+- customRepositoryMapping:
+    artifactRoot: $.items
+    buildNoPath: version
+  scriptString: |-
+    cat <<EOF > ${ARTIFACT_RESULT_PATH}
+    {
+      "items": [
+        {
+          "version": "1.0"
+        }
+      ]
+    }
+    EOF
+  timeout: '60'

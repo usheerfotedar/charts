@@ -1,0 +1,136 @@
+harnessApiVersion: '1.0'
+type: ROLLING
+concurrencyStrategy: INFRA
+envName: qa
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+notificationRules:
+- conditions:
+  - FAILED
+  executionScope: WORKFLOW
+  notificationGroupAsExpression: false
+  userGroupAsExpression: false
+  userGroupIds:
+  - tSS6OKRcRr2JMVRcuzTDOw
+phases:
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: testk8
+  name: Rolling
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_DEPLOYMENT_ROLLING
+      name: Rollout Deployment
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    steps:
+    - type: SPLUNKV2
+      name: SPLUNK
+      properties:
+        analysisServerConfigId: 2x9LzHpuSqq3ERu50urR6g
+        comparisonStrategy: COMPARE_WITH_PREVIOUS
+        executeWithPreviousSteps: false
+        hostnameField: pod
+        hostnameTemplate: ${host.hostName}
+        isAdvancedQuery: false
+        query: index=prod *exception*
+        templateExpressions: null
+        templateUuid: null
+        templateVariables: null
+        templateVersion: null
+        timeDuration: 15
+    - type: APP_DYNAMICS
+      name: AppDynamics
+      properties:
+        analysisServerConfigId: NH7L02T3R0i-ALgqwzA3tg
+        analysisTolerance: LOW
+        applicationId: '10699'
+        comparisonStrategy: COMPARE_WITH_PREVIOUS
+        executeWithPreviousSteps: false
+        hostnameTemplate: ${host.hostName}
+        templateExpressions: null
+        templateUuid: null
+        templateVariables: null
+        templateVersion: null
+        tierId: '151137'
+        timeDuration: 15
+    - type: STACK_DRIVER_LOG
+      name: Stackdriver Log
+      properties:
+        analysisServerConfigId: FFzf1YZnQ1ii6iqcgL80Vw
+        analysisTolerance: LOW
+        comparisonStrategy: COMPARE_WITH_PREVIOUS
+        hostnameField: resource.labels.pod_name
+        hostnameTemplate: ${host.hostName}
+        logsConfiguration: true
+        messageField: textPayload
+        query: severity:"ERROR"
+        region: ''
+        stateType: STACK_DRIVER_LOG
+        timeDuration: '10'
+    - type: ELK
+      name: ELK
+      properties:
+        analysisServerConfigId: eIZGIGwQT_-5i-ivZjG16g
+        comparisonStrategy: COMPARE_WITH_PREVIOUS
+        executeWithPreviousSteps: false
+        hostnameField: application
+        hostnameTemplate: ${service.description}
+        includePreviousPhaseNodes: false
+        indices: filebeat-*
+        messageField: message_content
+        query: |-
+          info
+          error
+          exception
+          warn
+        queryType: MATCH
+        timeDuration: 15
+        timestampField: '@timestamp'
+        timestampFormat: yyyy-MM-dd'T'HH:mm:ss.SSSX
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: my_k8s_service
+  statefulSet: false
+rollbackPhases:
+- type: KUBERNETES
+  computeProviderName: kubernetes_cluster
+  daemonSet: false
+  infraDefinitionName: testk8
+  name: Rollback Rolling
+  phaseNameForRollback: Rolling
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    steps:
+    - type: K8S_DEPLOYMENT_ROLLING_ROLLBACK
+      name: Rollback Deployment
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: my_k8s_service
+  statefulSet: false
+templatized: true
+userVariables:
+- type: NUMBER
+  allowedValues: 1,2,3
+  fixed: false
+  mandatory: true
+  name: test
+  value: '3'

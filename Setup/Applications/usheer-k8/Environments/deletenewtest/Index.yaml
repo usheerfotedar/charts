@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: ENVIRONMENT
+configMapYamlByServiceTemplateName: {}
+environmentType: PROD
+variableOverrides:
+- name: aws_access_key
+  value: gcpkms:hhCN1LgAS46PaAJSwN3dcA
+  valueType: ENCRYPTED_TEXT

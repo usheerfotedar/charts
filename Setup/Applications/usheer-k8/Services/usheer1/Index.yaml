@@ -1,0 +1,12 @@
+harnessApiVersion: '1.0'
+type: SERVICE
+artifactType: DOCKER
+configVariables:
+- name: secretvar
+  value: awssecretsmanager:krjmfJnlSYCeyqqLJFfIYw
+  valueType: ENCRYPTED_TEXT
+- name: nr_message
+  value: phase1sr
+  valueType: TEXT
+deploymentType: KUBERNETES
+helmVersion: V2
